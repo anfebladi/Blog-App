@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+ <%- include("../partials/head.ejs") %>
+ <%- include("../partials/nav.ejs") %>
+ <div class="container-fluid">
+
+    <div class="row mt-5">
+        <div class="col-12 d-flex justify-content-center">
+            <h2 class="display-3"> <%= blog.title %> </h2>
+        </div>
+    </div>
+
+    <div class="row mx-5">
+        <div class="col-12 d-flex justify-content-center">
+            <p class="my-5 fs-3">
+                <%= blog.body %>
+            </p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12 d-flex justify-content-center">
+                <button class=" delete btn btn-lg btn-secondary" data-doc="<%= blog._id %>">
+                    delete
+                </button>
+        </div>
+    </div>
+
+    <script>
+        const trash = document.querySelector("button.delete")
+
+        trash.addEventListener("click", (e)=> {
+            const endpoint = `/blogs/${trash.dataset.doc}`
+
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+            .then((response)=> response.json())
+            .then((data)=> window.location.href = data.redirect)
+            .catch((err)=> {
+                console.log(err)
+            })
+        })
+    </script>
+
+</div> 
+<%- include("../partials/footer.ejs") %>
+</html>
