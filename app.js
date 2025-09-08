@@ -6,8 +6,10 @@ const uri = process.env.personal_uri
 const mongoose = require("mongoose");
 const Blog = require("./models/blog")
 
+const PORT = process.env.PORT || 3000;
+
 mongoose.connect(uri)  
-    .then( () => app.listen(3000))
+    .then( () => app.listen(PORT))
     .catch((err)=> console.log(err))
 
 app.set("view engine", "ejs");
