@@ -3,4 +3,4 @@ services:
     name: Blog App
     env: node
     buildCommand: npm install
-    startCommand: node app.js
+    startCommand: node app.js 
