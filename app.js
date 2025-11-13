@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 const Blog = require("./models/blog")
 const  { authentication  } = require("./authentication/authentication.js")
 
-
+const port = process.env.PORT || 3000;
 
 // set view engine 
 app.set("view engine", "ejs"); 
@@ -21,8 +21,9 @@ app.use(express.urlencoded());
 
 // connect to database
 const uri = process.env.PERSONAL_URI
+
 mongoose.connect(uri)  
-    .then( () => app.listen(3000))
+    .then( () => app.listen(port ))
     .catch((err)=> console.log(err))
 
 
