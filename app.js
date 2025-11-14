@@ -17,14 +17,15 @@ app.set("view engine", "ejs");
 app.use(cookieParser()) 
 app.use(express.static('static')); ///css
 app.use(express.json());   // from json to js
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 // connect to database
-const uri = process.env.PERSONAL_URI
+const uri = process.env.PERSONAL_URI || process.env.MONGODB_URI;
+if (!uri) process.exit(1);
 
-mongoose.connect(uri)  
-    .then( () => app.listen(port ))
-    .catch((err)=> console.log(err))
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(port))
+  .catch(() => process.exit(1));
 
 
 
@@ -93,7 +94,7 @@ app.post('/blogs',(req,res)=> {
     const blog = new Blog(req.body)
     blog.save()
         .then((result)=> {
-            res.redirect("./blogs")
+            res.redirect('/blogs');
         })
         .catch((err)=> {
             console.log(err)
