@@ -36,7 +36,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 app.get('/', (req,res)=> {
-    res.render('home', {title: "blog app"})
+    res.render('Home', {title: "blog app"})
 })
 
 
